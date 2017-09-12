@@ -33,13 +33,13 @@ class UsersType extends AbstractType
             ->add('tin', NumberType::class, array(
                 'label' => 'ИНН',
                 'constraints' => new UserNumeric(array(
-                    'count' => 12
+                    'count' => 16
                 ))
             ))
             ->add('snils',NumberType::class, array(
                 'label' => 'СНИЛС',
                 'constraints' => new UserNumeric(array(
-                    'count' => 11
+                    'count' => 13
                 ))
             ))
             ->add('organization', EntityType::class, array(

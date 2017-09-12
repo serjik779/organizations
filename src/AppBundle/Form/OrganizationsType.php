@@ -29,7 +29,7 @@ class OrganizationsType extends AbstractType
             ->add('oktmo',NumberType::class, array(
                 'label' => 'ОКТМО',
                 'constraints' => new UserNumeric(array(
-                    'count' => 13
+                    'count' => 11
                 ))
             ));
     }
