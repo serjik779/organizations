@@ -103,10 +103,18 @@ class OrganizationsController extends Controller
         $form = $this->createDeleteForm($organization);
         $form->handleRequest($request);
 
+
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->remove($organization);
-            $em->flush();
+            $user = $em->getRepository(Users::class)->findOneBy(array(
+                'organization' => $request->get('id')
+            ));
+            if ($user) {
+                $this->addFlash('error', 'Сначала необходимо удалить все работников ' . $organization->getTitle() . '!!');
+            } else {
+                $em->remove($organization);
+                $em->flush();
+            }
         }
 
         return $this->redirectToRoute('organizations_index');

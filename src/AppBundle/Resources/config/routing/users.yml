@@ -22,8 +22,3 @@ users_delete:
     path:     /{id}/delete
     defaults: { _controller: "AppBundle:Users:delete" }
     methods:  DELETE
-
-#users_xml:
-#    path:     /xml
-#    defaults: { _controller: "AppBundle:Users:xmlImport" }
-#    method:   POST
