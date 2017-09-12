@@ -1,0 +1,29 @@
+users_index:
+    path:     /
+    defaults: { _controller: "AppBundle:Users:index" }
+    methods:  GET
+
+users_show:
+    path:     /{id}/show
+    defaults: { _controller: "AppBundle:Users:show" }
+    methods:  GET
+
+users_new:
+    path:     /new
+    defaults: { _controller: "AppBundle:Users:new" }
+    methods:  [GET, POST]
+
+users_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AppBundle:Users:edit" }
+    methods:  [GET, POST]
+
+users_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AppBundle:Users:delete" }
+    methods:  DELETE
+
+#users_xml:
+#    path:     /xml
+#    defaults: { _controller: "AppBundle:Users:xmlImport" }
+#    method:   POST

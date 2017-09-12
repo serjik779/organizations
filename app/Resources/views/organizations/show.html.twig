@@ -1,0 +1,59 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block body %}
+    <h1>Организации</h1>
+
+    <table class="table table-responsive">
+        <tbody>
+            <tr>
+                <th>Номер</th>
+                <td>{{ organization.id }}</td>
+            </tr>
+            <tr>
+                <th>Наименование</th>
+                <td>{{ organization.title }}</td>
+            </tr>
+            <tr>
+                <th>ОГРН</th>
+                <td>{{ organization.ogrn }}</td>
+            </tr>
+            <tr>
+                <th>ОКТМО</th>
+                <td>{{ organization.oktmo }}</td>
+            </tr>
+        </tbody>
+    </table>
+    {{ form_start(delete_form) }}
+    <a class="btn btn-default" href="{{ path('organizations_index') }}">Вернуться</a>
+    <a class="btn btn-default" href="{{ path('organizations_edit', { 'id': organization.id }) }}">Редактировать</a>
+    <input class="btn btn-default" type="submit" value="Удалить">
+    {{ form_end(delete_form) }}
+    {% if users %}
+    <h2>Работники организации</h2>
+    <table class="table table-responsive">
+        <thead>
+            <th>Номер</th>
+            <th>Фамилия</th>
+            <th>Имя</th>
+            <th>Отчество</th>
+            <th>Дата рождения</th>
+            <th>ИНН</th>
+            <th>СНИЛС</th>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.lastname }}</td>
+                <td>{{ user.firstname }}</td>
+                <td>{{ user.middlename }}</td>
+                <td>{{ user.birth|date("d/m/Y") }}</td>
+                <td>{{ user.tin }}</td>
+                <td>{{ user.snils }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+
+{% endblock %}

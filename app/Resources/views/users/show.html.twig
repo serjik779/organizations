@@ -1,0 +1,44 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block body %}
+    <h1>Работник</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Номер</th>
+                <td>{{ user.id }}</td>
+            </tr>
+            <tr>
+                <th>Фамилия</th>
+                <td>{{ user.lastname }}</td>
+            </tr>
+            <tr>
+                <th>Имя</th>
+                <td>{{ user.firstname }}</td>
+            </tr>
+            <tr>
+                <th>Отчество</th>
+                <td>{{ user.middlename }}</td>
+            </tr>
+            <tr>
+                <th>Дата рождения</th>
+                <td>{% if user.birth %}{{ user.birth|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>ИНН</th>
+                <td>{{ user.tin }}</td>
+            </tr>
+            <tr>
+                <th>СНИЛС</th>
+                <td>{{ user.snils }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    {{ form_start(delete_form) }}
+        <a class="btn btn-default" href="{{ path('users_index') }}">Вернуться</a>
+        <a class="btn btn-default" href="{{ path('users_edit', { 'id': user.id }) }}">Редактировать</a>
+        <input class="btn btn-default" type="submit" value="Удалить">
+    {{ form_end(delete_form) }}
+{% endblock %}

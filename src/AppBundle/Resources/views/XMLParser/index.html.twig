@@ -1,0 +1,20 @@
+{% extends "AppBundle::base.html.twig" %}
+
+{% block title %}AppBundle:XMLParser:index{% endblock %}
+
+{% block body %}
+<h1>Страница импорта работников</h1>
+    {% if app.session.flashbag.peekAll|length > 0 %}
+        {% for type, messages in app.session.flashbag.all %}
+            {% for message in messages %}
+                <div class="{{ type ? type : '' }}">
+                    {{ message|trans({}, domain|default('messages')) }}
+                </div>
+            {% endfor %}
+        {% endfor %}
+    {% endif %}
+    <form method="post" enctype="multipart/form-data">
+        <input type="file" name="xml">
+        <input type="submit">
+    </form>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'AppBundle::base.html.twig' %}
+{% block body %}
+    {% form_theme edit_form 'bootstrap_3_layout.html.twig' %}
+    <h1>Редактирование работника</h1>
+
+    {{ form_start(edit_form) }}
+        {{ form_widget(edit_form) }}
+        <a class="btn btn-default" href="{{ path('users_index') }}">Вернуться</a>
+        <input class="btn btn-default" type="submit" value="Редактировать" />
+    {{ form_end(edit_form) }}
+        {{ form_start(delete_form) }}
+        <input class="btn btn-default" type="submit" value="Удалить">
+    {{ form_end(delete_form) }}
+{% endblock %}
