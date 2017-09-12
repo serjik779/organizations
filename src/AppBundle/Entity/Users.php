@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -66,7 +67,7 @@ class Users
     /**
      * @var Organizations
      *
-     * @ORM\ManyToOne(targetEntity="Organizations", inversedBy="user", cascade={remove})
+     * @ORM\ManyToOne(targetEntity="Organizations", inversedBy="user", cascade={"remove"})
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="organization_id", referencedColumnName="id")
      * })
