@@ -75,6 +75,7 @@ class XMLParserController extends Controller
         try {
             $organizationsXML = $serializer->decode($xml, 'xml');
             $em = $this->getDoctrine()->getManager();
+            $stop = false;
             foreach ($organizationsXML['org'] as $organizationXML) {
                 $organization = $em->getRepository(Organizations::class)->findOneBy(array(
                     'ogrn' => $organizationXML['@ogrn']
@@ -89,6 +90,7 @@ class XMLParserController extends Controller
                 foreach ($organizationXML['user'] as $key => $userXML) {
                     if (!is_numeric($key)) {
                         $userXML = $organizationXML['user'];
+                        $stop = true;
                     }
                     $user = $em->getRepository(Users::class)->findOneBy(array(
                         'snils' => $userXML["@snils"]
@@ -103,6 +105,9 @@ class XMLParserController extends Controller
                         ->setSnils($userXML['@snils'])
                         ->setTin($userXML['@inn']);
                     $em->persist($user);
+                    if ($stop) {
+                        break;
+                    }
                 }
             }
             $em->flush();

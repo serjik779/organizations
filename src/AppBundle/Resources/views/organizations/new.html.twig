@@ -5,7 +5,7 @@
 
     {{ form_start(form) }}
         {{ form_widget(form) }}
-        <input type="submit" value="{{ 'create'|trans }}" />
+        <input class="btn btn-default" type="submit" value="{{ 'create'|trans }}" />
     {{ form_end(form) }}
 
     <a class="btn btn-default" href="{{ path('organizations_index') }}">{{ 'back.to.list'|trans }}</a>
