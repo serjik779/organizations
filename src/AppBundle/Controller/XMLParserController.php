@@ -30,7 +30,7 @@ class XMLParserController extends Controller
 
             if (!$this->checkFileType($file)) {
                 $this->addFlash('error', 'Тип файла должен быть XML');
-                #return $this->redirectToRoute('app_import');
+                return $this->redirectToRoute('app_import');
             }
 
             if (!$file->move($this->getParameter('path_to_xml'), $file->getClientOriginalName())) {
