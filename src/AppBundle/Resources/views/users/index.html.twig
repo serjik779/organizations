@@ -6,7 +6,8 @@
     <table class="table table-responsive">
         <thead>
             <tr>
-                <th>Id</th>
+                <th>Номер</th>
+                <th>Организация</th>
                 <th>Фамилия</th>
                 <th>Имя</th>
                 <th>Отчество</th>
@@ -20,6 +21,7 @@
         {% for user in users %}
             <tr>
                 <td>{{ user.id }}</td>
+                <td>{{ user.organization.title }}</td>
                 <td><a href="{{ path('users_show', { 'id': user.id }) }}">{{ user.lastname }}</a></td>
                 <td>{{ user.firstname }}</td>
                 <td>{{ user.middlename }}</td>

@@ -22,3 +22,8 @@ organizations_delete:
     path:     /{id}/delete
     defaults: { _controller: "AppBundle:Organizations:delete" }
     methods:  DELETE
+
+organizations_remove:
+    path:     /{id}/remove
+    defaults: { _controller: "AppBundle:Organizations:remove" }
+    methods:  GET

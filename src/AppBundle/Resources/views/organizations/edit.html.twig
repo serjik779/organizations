@@ -7,8 +7,8 @@
         {{ form_widget(edit_form) }}
         <a class="btn btn-default" href="{{ path('organizations_index') }}">Вернуться</a>
         <input class="btn btn-default" type="submit" value="Редактировать" />
+        <button class="btn btn-default" type="button" id="organization" value="{{ organization.id }}" data-toggle="modal" data-target="#organizationDeleteModal">Удалить организацию</button>
     {{ form_end(edit_form) }}
-    {{ form_start(delete_form) }}
-        <input class="btn btn-default" type="submit" value="Удалить">
-    {{ form_end(delete_form) }}
+
+    {% include 'AppBundle::modal.html.twig' %}
 {% endblock %}

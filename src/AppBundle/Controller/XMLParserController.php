@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Acl\Exception\Exception;
 use Symfony\Component\Security\Core\User\User;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\Encoder\XmlEncoder;
@@ -16,37 +17,64 @@ use AppBundle\Entity\Users;
 
 class XMLParserController extends Controller
 {
+
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function indexAction(Request $request)
     {
-        $xml = '<?xml version="1.0"?>
-                <orgs>
-                    <org displayName="ООО Краснознаменск" ogrn="9697567955367" oktmo="34586905567">
-                        <user firstname="Василий" middlename="Иванович" lastname="Пупкин" inn="8947493759347894" snils="9762738648233" />
-                        <user firstname="Виталий" middlename="Петрович" lastname="Швабрин" inn="8947493345457894" snils="9762345358233"  />
-                    </org>
-                    <org displayName="ООО Серп и молот" ogrn="9693453534747" oktmo="34585645567">
-                        <user firstname="Александр" middlename="Сергеевич" lastname="Пушкин" inn="8947345345354894" snils="7667877898233"  />
-                    </org>
-                </orgs>';
         if ($request->getMethod() == "POST") {
 
-            $file = $request->files->get('xml');
+            $file = $request->files->get('xml', null);
 
-            $file->move(
-                $this->getParameter('path_to_xml'),
-                $file->getClientOriginalName()
-            );
-            dump($file);
+            if (!$this->checkFileType($file)) {
+                $this->addFlash('error', 'Тип файла должен быть XML');
+                #return $this->redirectToRoute('app_import');
+            }
+
+            if (!$file->move($this->getParameter('path_to_xml'), $file->getClientOriginalName())) {
+                $this->addFlash('error', 'Не возможно переместить файл');
+                return $this->redirectToRoute('app_import');
+            }
 
             $encoders = array(new XmlEncoder());
             $normalizers = array(new ObjectNormalizer());
 
             $serializer = new Serializer($normalizers, $encoders);
             $xml = file_get_contents($this->getParameter('path_to_xml') . '/' . $file->getClientOriginalName());
+
+            if (!$this->parseXml($xml, $serializer)) {
+                $this->addFlash('error', 'Не возможно обработать файл');
+                $this->redirectToRoute('app_import');
+            }
+
+            $this->addFlash('success', 'Импорт прошел успешно');
+        }
+
+        return $this->render('AppBundle:XMLParser:index.html.twig');
+    }
+
+    /**
+     * @param UploadedFile $file
+     * @return bool
+     */
+    public function checkFileType($file) {
+        if ((isset($file)) && ($file->getClientMimeType() == 'text/xml')) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * @param string $xml
+     * @param Serializer $serializer
+     * @return bool
+     */
+    public function parseXml(string $xml, Serializer $serializer) {
+        try {
             $organizationsXML = $serializer->decode($xml, 'xml');
-
             $em = $this->getDoctrine()->getManager();
-
             foreach ($organizationsXML['org'] as $organizationXML) {
                 $organization = $em->getRepository(Organizations::class)->findOneBy(array(
                     'ogrn' => $organizationXML['@ogrn']
@@ -90,14 +118,13 @@ class XMLParserController extends Controller
                         break;
                     }
                 }
-                $em->flush();
             }
-            $this->addFlash('success', 'Импорт прошел успешно');
+            $em->flush();
+        } catch (Exception $e) {
+            $this->addFlash('error', $e->getMessage());
+            return false;
         }
-
-        return $this->render('AppBundle:XMLParser:index.html.twig', array(
-            // ...
-        ));
+        return true;
     }
 
 }

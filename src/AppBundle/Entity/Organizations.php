@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -43,11 +44,35 @@ class Organizations
     private $oktmo;
 
     /**
-     * @var Users
+     * @var ArrayCollection|Users
      *
      * @ORM\OneToMany(targetEntity="Users", mappedBy="organization", cascade={"remove"})
      */
-    private $user;
+    private $users;
+
+
+    public function __construct()
+    {
+        $this->users = new ArrayCollection();
+    }
+
+    /**
+     * @return ArrayCollection|Users
+     */
+    public function getUsers()
+    {
+        return $this->users;
+    }
+
+    /**
+     * @param Users $users
+     * @return Organizations
+     */
+    public function setUsers($users)
+    {
+        $this->users[] = $users;
+        return $this;
+    }
 
     /**
      * Set title

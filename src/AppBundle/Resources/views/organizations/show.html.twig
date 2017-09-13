@@ -23,11 +23,9 @@
             </tr>
         </tbody>
     </table>
-    {{ form_start(delete_form) }}
     <a class="btn btn-default" href="{{ path('organizations_index') }}">Вернуться</a>
     <a class="btn btn-default" href="{{ path('organizations_edit', { 'id': organization.id }) }}">Редактировать</a>
-    <input class="btn btn-default" type="submit" value="Удалить">
-    {{ form_end(delete_form) }}
+    <button class="btn btn-default" type="button" id="organization" value="{{ organization.id }}" data-toggle="modal" data-target="#organizationDeleteModal">Удалить организацию</button>
     {% if users %}
     <h2>Работники организации</h2>
     <table class="table table-responsive">
@@ -55,5 +53,5 @@
         </tbody>
     </table>
     {% endif %}
-
+    {% include 'AppBundle::modal.html.twig' %}
 {% endblock %}
