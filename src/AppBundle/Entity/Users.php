@@ -67,7 +67,7 @@ class Users
     /**
      * @var Organizations
      *
-     * @ORM\ManyToOne(targetEntity="Organizations", inversedBy="user", cascade={"remove"})
+     * @ORM\ManyToOne(targetEntity="Organizations", inversedBy="users", cascade={"remove"})
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="organization_id", referencedColumnName="id")
      * })

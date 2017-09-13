@@ -6,4 +6,7 @@ $(function () {
             window.location = "/organizations";
         });
     });
+    $('.js-datepicker').datepicker({
+        format: 'yyyy-mm-dd'
+    });
 });

@@ -103,10 +103,7 @@ class OrganizationsController extends Controller
         $em = $this->getDoctrine()->getManager();
         $organization = $em->getRepository(Organizations::class)->find($organizationId);
         if ($organization) {
-            $users = $em->getRepository(Users::class)->findBy(array(
-                'organization' => $organizationId
-            ));
-            dump($users);
+            $users = $organization->getUsers();
             if ($users) {
                 try {
                     foreach ($users as $user) {

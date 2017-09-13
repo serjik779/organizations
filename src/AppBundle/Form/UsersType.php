@@ -28,7 +28,8 @@ class UsersType extends AbstractType
                 'label' => 'Отчество'
             ))
             ->add('birth', DateType::class, array(
-                'label' => 'Дата рождения'
+                'label' => 'Дата рождения',
+                'widget' => 'single_text',
             ))
             ->add('tin', TextType::class, array(
                 'label' => 'ИНН',

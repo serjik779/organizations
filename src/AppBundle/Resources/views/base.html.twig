@@ -3,12 +3,12 @@
     <head>
         <meta charset="UTF-8" />
         <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}
-
-        {% endblock %}
         {% stylesheets '@bootstrap_css' %}
-        <link rel="stylesheet" type="text/css" media="screen" href="{{ asset_url }}"/>
+            <link rel="stylesheet" type="text/css" media="screen" href="{{ asset_url }}"/>
         {% endstylesheets %}
+        {% block stylesheets %}
+            <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/css/bootstrap-datepicker.css">
+        {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
@@ -25,6 +25,7 @@
         {% endjavascripts %}
         {% block javascripts %}
             <script type="text/javascript" src="/js/index.js"></script>
+            <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/js/bootstrap-datepicker.min.js"></script>
         {% endblock %}
     </body>
 </html>
