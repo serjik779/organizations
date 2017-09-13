@@ -6,7 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class OrganizationsControllerTest extends WebTestCase
 {
-    /*
+
     public function testCompleteScenario()
     {
         // Create a new client to browse the application
@@ -43,13 +43,13 @@ class OrganizationsControllerTest extends WebTestCase
         // Check the element contains an attribute with value equals "Foo"
         $this->assertGreaterThan(0, $crawler->filter('[value="Foo"]')->count(), 'Missing element [value="Foo"]');
 
-        // Delete the entity
-        $client->submit($crawler->selectButton('Delete')->form());
-        $crawler = $client->followRedirect();
-
-        // Check the entity has been delete on the list
-        $this->assertNotRegExp('/Foo/', $client->getResponse()->getContent());
+//        // Delete the entity
+//        $client->submit($crawler->selectButton('Remove')->form());
+//        $crawler = $client->followRedirect();
+//
+//        // Check the entity has been delete on the list
+//        $this->assertNotRegExp('/Foo/', $client->getResponse()->getContent());
     }
 
-    */
+
 }

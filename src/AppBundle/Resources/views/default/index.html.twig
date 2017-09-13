@@ -2,9 +2,9 @@
 
 {% block body %}
     <div id="wrapper">
-        <a class="btn btn-default" href="{{ path('organizations_index') }}">Организации</a>
-        <a class="btn btn-default" href="{{ path('users_index') }}">Работники</a>
-        <a class="btn btn-default" href="{{ path('app_import') }}">Импорт</a>
+        <a class="btn btn-default" href="{{ path('organizations_index') }}">{{ 'organizations'|trans }}</a>
+        <a class="btn btn-default" href="{{ path('users_index') }}">{{ 'persons'|trans }}</a>
+        <a class="btn btn-default" href="{{ path('app_import') }}">{{ 'import'|trans }}</a>
     </div>
 {% endblock %}
 

@@ -18,16 +18,16 @@ class OrganizationsType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('title', TextType::class, array(
-            'label' => 'Наименование'
+            'label' => 'title'
         ))
             ->add('ogrn', TextType::class, array(
-                'label' => 'ОГРН',
+                'label' => 'OGRN',
                 'constraints' => new UserNumeric(array(
                     'count' => 13
                 ))
             ))
             ->add('oktmo',NumberType::class, array(
-                'label' => 'ОКТМО',
+                'label' => 'OKTMO',
                 'constraints' => new UserNumeric(array(
                     'count' => 11
                 ))
@@ -40,7 +40,8 @@ class OrganizationsType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Organizations'
+            'data_class' => 'AppBundle\Entity\Organizations',
+            'translation_domain' => 'messages'
         ));
     }
 

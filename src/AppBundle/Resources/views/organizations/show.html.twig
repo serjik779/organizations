@@ -6,37 +6,37 @@
     <table class="table table-responsive">
         <tbody>
             <tr>
-                <th>Номер</th>
+                <th>{{ 'number'|trans }}</th>
                 <td>{{ organization.id }}</td>
             </tr>
             <tr>
-                <th>Наименование</th>
+                <th>{{ 'title'|trans }}</th>
                 <td>{{ organization.title }}</td>
             </tr>
             <tr>
-                <th>ОГРН</th>
+                <th>{{ 'OGRN'|trans }}</th>
                 <td>{{ organization.ogrn }}</td>
             </tr>
             <tr>
-                <th>ОКТМО</th>
+                <th>{{ 'OKTMO'|trans }}</th>
                 <td>{{ organization.oktmo }}</td>
             </tr>
         </tbody>
     </table>
-    <a class="btn btn-default" href="{{ path('organizations_index') }}">Вернуться</a>
-    <a class="btn btn-default" href="{{ path('organizations_edit', { 'id': organization.id }) }}">Редактировать</a>
-    <button class="btn btn-default" type="button" id="organization" value="{{ organization.id }}" data-toggle="modal" data-target="#organizationDeleteModal">Удалить организацию</button>
+    <a class="btn btn-default" href="{{ path('organizations_index') }}">{{ 'back.to.list'|trans }}</a>
+    <a class="btn btn-default" href="{{ path('organizations_edit', { 'id': organization.id }) }}">{{ 'edit'|trans }}</a>
+    <button class="btn btn-default" type="button" id="organization" value="{{ organization.id }}" data-toggle="modal" data-target="#organizationDeleteModal">{{ 'delete'|trans }}</button>
     {% if users %}
-    <h2>Работники организации</h2>
+    <h2>{{ 'person.organization'|trans }}</h2>
     <table class="table table-responsive">
         <thead>
-            <th>Номер</th>
-            <th>Фамилия</th>
-            <th>Имя</th>
-            <th>Отчество</th>
-            <th>Дата рождения</th>
-            <th>ИНН</th>
-            <th>СНИЛС</th>
+            <th>{{ 'number'|trans }}</th>
+            <th>{{ 'lastname'|trans }}</th>
+            <th>{{ 'firstname'|trans }}</th>
+            <th>{{ 'middlename'|trans }}</th>
+            <th>{{ 'birth'|trans }}</th>
+            <th>{{ 'TIN'|trans }}</th>
+            <th>{{ 'SNILS'|trans }}</th>
         </thead>
         <tbody>
             {% for user in users %}

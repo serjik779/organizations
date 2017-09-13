@@ -87,36 +87,22 @@ class XMLParserController extends Controller
                     ->setOktmo($organizationXML['@oktmo']);
                 $em->persist($organization);
                 foreach ($organizationXML['user'] as $key => $userXML) {
-                    if (is_numeric($key)) {
-                        $user = $em->getRepository(Users::class)->findOneBy(array(
-                            'snils' => $userXML["@snils"]
-                        ));
-                        if (!$user) {
-                            $user = new Users();
-                        }
-                        $user->setFirstname($userXML['@firstname'])
-                            ->setLastname($userXML['@lastname'])
-                            ->setMiddlename($userXML['@middlename'])
-                            ->setOrganization($organization)
-                            ->setSnils($userXML['@snils'])
-                            ->setTin($userXML['@inn']);
-                        $em->persist($user);
-                    } else {
-                        $user = $em->getRepository(Users::class)->findOneBy(array(
-                            'snils' => $organizationXML['user']["@snils"]
-                        ));
-                        if (!$user) {
-                            $user = new Users();
-                        }
-                        $user->setFirstname($organizationXML['user']['@firstname'])
-                            ->setLastname($organizationXML['user']['@lastname'])
-                            ->setMiddlename($organizationXML['user']['@middlename'])
-                            ->setOrganization($organization)
-                            ->setSnils($organizationXML['user']['@snils'])
-                            ->setTin($organizationXML['user']['@inn']);
-                        $em->persist($user);
-                        break;
+                    if (!is_numeric($key)) {
+                        $userXML = $organizationXML['user'];
                     }
+                    $user = $em->getRepository(Users::class)->findOneBy(array(
+                        'snils' => $userXML["@snils"]
+                    ));
+                    if (!$user) {
+                        $user = new Users();
+                    }
+                    $user->setFirstname($userXML['@firstname'])
+                        ->setLastname($userXML['@lastname'])
+                        ->setMiddlename($userXML['@middlename'])
+                        ->setOrganization($organization)
+                        ->setSnils($userXML['@snils'])
+                        ->setTin($userXML['@inn']);
+                    $em->persist($user);
                 }
             }
             $em->flush();

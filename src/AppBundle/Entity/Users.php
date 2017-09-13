@@ -2,14 +2,13 @@
 
 namespace AppBundle\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Users
  *
  * @ORM\Table(name="Users", indexes={@ORM\Index(name="fk_organization", columns={"organization_id"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\UsersRepository")
  */
 class Users
 {

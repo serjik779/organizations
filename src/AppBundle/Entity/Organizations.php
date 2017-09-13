@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Organizations
  *
  * @ORM\Table(name="Organizations")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\OrganizationsRepository")
  */
 class Organizations
 {
@@ -153,6 +153,10 @@ class Organizations
         return $this->id;
     }
 
+    /**
+     * Need for show data for field 'organization' in Create user
+     * @return string
+     */
     public function __toString()
     {
         return $this->getTitle()?: 'Нет данных';

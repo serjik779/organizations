@@ -1,20 +1,20 @@
 {% extends 'AppBundle::base.html.twig' %}
 
 {% block body %}
-    <h1>Список работников</h1>
+    <h1>{{ 'list.person'|trans }}</h1>
 
     <table class="table table-responsive">
         <thead>
             <tr>
-                <th>Номер</th>
-                <th>Организация</th>
-                <th>Фамилия</th>
-                <th>Имя</th>
-                <th>Отчество</th>
-                <th>Дата рождения</th>
-                <th>ИНН</th>
-                <th>СНИЛС</th>
-                <th>Действия</th>
+                <th>{{ 'number'|trans }}</th>
+                <th>{{ 'organization'|trans }}</th>
+                <th>{{ 'lastname'|trans }}</th>
+                <th>{{ 'firstname'|trans }}</th>
+                <th>{{ 'middlename'|trans }}</th>
+                <th>{{ 'birth'|trans }}</th>
+                <th>{{ 'TIN'|trans }}</th>
+                <th>{{ 'SNILS'|trans }}</th>
+                <th>{{ 'actions'|trans }}</th>
             </tr>
         </thead>
         <tbody>
@@ -29,8 +29,8 @@
                 <td>{{ user.tin }}</td>
                 <td>{{ user.snils }}</td>
                 <td>
-                    <a class="btn btn-default" href="{{ path('users_show', { 'id': user.id }) }}">Показать</a>
-                    <a class="btn btn-default" href="{{ path('users_edit', { 'id': user.id }) }}">Редактировать</a>
+                    <a class="btn btn-default" href="{{ path('users_show', { 'id': user.id }) }}">{{ 'show'|trans }}</a>
+                    <a class="btn btn-default" href="{{ path('users_edit', { 'id': user.id }) }}">{{ 'edit'|trans }}</a>
                 </td>
             </tr>
         {% endfor %}
@@ -39,7 +39,7 @@
 
     <ul>
         <li>
-            <a class="btn btn-default" href="{{ path('users_new') }}">Создать работника</a>
+            <a class="btn btn-default" href="{{ path('users_new') }}">{{ 'create'|trans }}</a>
         </li>
     </ul>
 {% endblock %}

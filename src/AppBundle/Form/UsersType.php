@@ -19,33 +19,33 @@ class UsersType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('lastname', TextType::class, array(
-            'label' => 'Фамилия'
+            'label' => 'lastname'
             ))
             ->add('firstname', TextType::class, array(
-                'label' => 'Имя'
+                'label' => 'firstname'
             ))
             ->add('middlename', TextType::class, array(
-                'label' => 'Отчество'
+                'label' => 'middlename'
             ))
             ->add('birth', DateType::class, array(
-                'label' => 'Дата рождения',
+                'label' => 'birth',
                 'widget' => 'single_text',
             ))
             ->add('tin', TextType::class, array(
-                'label' => 'ИНН',
+                'label' => 'TIN',
                 'constraints' => new UserNumeric(array(
                     'count' => 16
                 ))
             ))
             ->add('snils',TextType::class, array(
-                'label' => 'СНИЛС',
+                'label' => 'SNILS',
                 'constraints' => new UserNumeric(array(
                     'count' => 13
                 ))
             ))
             ->add('organization', EntityType::class, array(
                 'class' => 'AppBundle:Organizations',
-                'label' => 'Организации'
+                'label' => 'organizations'
             ));
     }
     
@@ -55,7 +55,8 @@ class UsersType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Users'
+            'data_class' => 'AppBundle\Entity\Users',
+            'translation_domain' => 'messages'
         ));
     }
 

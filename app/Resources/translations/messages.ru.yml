@@ -1,0 +1,30 @@
+OKTMO: ОКТМО
+OGRN:  ОГРН
+title: Наименование
+lastname: Фамилия
+firstname: Имя
+middlename: Отчество
+birth: Дата рождения
+TIN: ИНН
+SNILS: СНИЛС
+organizations: Организации
+organization: Организация
+edit.organization: Редактирование организации
+back.to.list: Вернуться
+edit: Редактировать
+remove.organization: Удалить организацию
+number: Номер
+actions: Действия
+create.organization: Создать организацию
+create: Создать
+delete: Удалить
+person.organization: Работники организации
+edit.person: Редактирование работника
+list.person: Список работников
+show: Показать
+create.person: Создание работника
+persons: Работники
+import: Импорт
+home: Главная
+confirm.deletion: Подтверждение удаления
+confirm.deletion.message: При удалении организации удалятся все ее сотрудники, Вы действительно хотите удалить организацию?
