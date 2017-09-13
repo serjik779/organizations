@@ -88,7 +88,7 @@ class XMLParserController extends Controller
                     ->setOktmo($organizationXML['@oktmo']);
                 $em->persist($organization);
                 foreach ($organizationXML['user'] as $key => $userXML) {
-                    if (!is_numeric($key)) {
+                    if (!is_array($userXML)) {
                         $userXML = $organizationXML['user'];
                         $stop = true;
                     }
