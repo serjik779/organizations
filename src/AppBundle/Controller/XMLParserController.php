@@ -87,6 +87,9 @@ class XMLParserController extends Controller
                     ->setTitle($organizationXML['@displayName'])
                     ->setOktmo($organizationXML['@oktmo']);
                 $em->persist($organization);
+                if (!isset($organizationXML['user'])) {
+                    continue;
+                }
                 foreach ($organizationXML['user'] as $key => $userXML) {
                     if (!is_array($userXML)) {
                         $userXML = $organizationXML['user'];

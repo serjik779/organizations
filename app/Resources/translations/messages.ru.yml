@@ -21,6 +21,7 @@ delete: Удалить
 person.organization: Работники организации
 edit.person: Редактирование работника
 list.person: Список работников
+list.organizations: Список организаций
 show: Показать
 create.person: Создание работника
 persons: Работники

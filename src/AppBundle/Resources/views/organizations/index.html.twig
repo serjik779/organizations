@@ -11,28 +11,28 @@
             {% endfor %}
         {% endfor %}
     {% endif %}
-    <h1>Список организаций</h1>
+    <h1>{{ 'list.organizations'|trans }}</h1>
     <table class="table table-responsive">
         <thead>
             <tr>
+                <th>{{ 'number'|trans }}</th>
                 <th>{{ 'title'|trans }}</th>
                 <th>{{ 'OGRN'|trans }}</th>
                 <th>{{ 'OKTMO'|trans }}</th>
-                <th>{{ 'number'|trans }}</th>
                 <th>{{ 'actions'|trans }}</th>
             </tr>
         </thead>
         <tbody>
         {% for organization in organizations %}
             <tr>
+                <td>{{ organization.id }}</td>
                 <td><a href="{{ path('organizations_show', { 'id': organization.id }) }}">{{ organization.title }}</a></td>
                 <td>{{ organization.ogrn }}</td>
                 <td>{{ organization.oktmo }}</td>
-                <td>{{ organization.id }}</td>
                 <td>
-                    <a class="btn btn-default" href="{{ path('organizations_show', { 'id': organization.id }) }}">Показать</a>
-                    <a class="btn btn-default" href="{{ path('organizations_edit', { 'id': organization.id }) }}">Редактировать</a>
-                    <button class="btn btn-default" type="button" id="organization" value="{{ organization.id }}" data-toggle="modal" data-target="#organizationDeleteModal">Удалить организацию</button>
+                    <a class="btn btn-default" href="{{ path('organizations_show', { 'id': organization.id }) }}">{{ 'show'|trans }}</a>
+                    <a class="btn btn-default" href="{{ path('organizations_edit', { 'id': organization.id }) }}">{{ 'edit'|trans }}</a>
+                    <button class="btn btn-default" type="button" id="organization" value="{{ organization.id }}" data-toggle="modal" data-target="#organizationDeleteModal">{{ 'delete'|trans }}</button>
                 </td>
             </tr>
         {% endfor %}
