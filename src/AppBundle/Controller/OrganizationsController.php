@@ -99,6 +99,7 @@ class OrganizationsController extends Controller
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function removeAction(Request $request) {
+        $translator = $this->get('translator');
         $organizationId = $request->get('id');
         $em = $this->getDoctrine()->getManager();
         $organization = $em->getRepository(Organizations::class)->find($organizationId);
@@ -110,17 +111,17 @@ class OrganizationsController extends Controller
                         $em->remove($user);
                     }
                 } catch (Exception $e) {
-                    $this->addFlash('error', 'Ошибка при удалении сотрудников: ' . $e->getMessage());
+                    $this->addFlash('error', $translator->trans('error.delete.person') . $e->getMessage());
                 }
             }
             try {
                 $em->remove($organization);
                 $em->flush();
             } catch (Exception $e) {
-                $this->addFlash('error', 'Ошибка при удалении организации: ' . $e->getMessage());
+                $this->addFlash('error', $translator->trans('error.delete.organization') . $e->getMessage());
             }
         } else {
-            $this->addFlash('error', 'Нет такой организации');
+            $this->addFlash('error', $translator->trans('error.not.organization'));
         }
         return $this->redirectToRoute('organizations_index');
     }

@@ -24,101 +24,29 @@ class XMLParserController extends Controller
      */
     public function indexAction(Request $request)
     {
+        $translator = $this->get('translator');
         if ($request->getMethod() == "POST") {
-
             $file = $request->files->get('xml', null);
-
-            if (!$this->checkFileType($file)) {
-                $this->addFlash('error', 'Тип файла должен быть XML');
+            if (!(isset($file)) || ($file->getClientMimeType() != 'text/xml')) {
+                $this->addFlash('error', $translator->trans('type.most.xml'));
                 return $this->redirectToRoute('app_import');
             }
-
             if (!$file->move($this->getParameter('path_to_xml'), $file->getClientOriginalName())) {
-                $this->addFlash('error', 'Не возможно переместить файл');
+                $this->addFlash('error', $translator->trans('not.possible.move.file'));
                 return $this->redirectToRoute('app_import');
             }
-
             $encoders = array(new XmlEncoder());
             $normalizers = array(new ObjectNormalizer());
-
             $serializer = new Serializer($normalizers, $encoders);
             $xml = file_get_contents($this->getParameter('path_to_xml') . '/' . $file->getClientOriginalName());
-
-            if (!$this->parseXml($xml, $serializer)) {
-                $this->addFlash('error', 'Не возможно обработать файл');
+            try {
+                $this->get('xmlparser')->parseXml($xml, $serializer);
+            } catch (Exception $e) {
+                $this->addFlash('error', $translator->trans('not.possible.handle.file') . $e->getMessage());
                 $this->redirectToRoute('app_import');
             }
-
-            $this->addFlash('success', 'Импорт прошел успешно');
+            $this->addFlash('success', $translator->trans('import.complete'));
         }
-
         return $this->render('AppBundle:XMLParser:index.html.twig');
     }
-
-    /**
-     * @param UploadedFile $file
-     * @return bool
-     */
-    public function checkFileType($file) {
-        if ((isset($file)) && ($file->getClientMimeType() == 'text/xml')) {
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * @param string $xml
-     * @param Serializer $serializer
-     * @return bool
-     */
-    public function parseXml(string $xml, Serializer $serializer) {
-        try {
-            $organizationsXML = $serializer->decode($xml, 'xml');
-            $em = $this->getDoctrine()->getManager();
-            $stop = false;
-            foreach ($organizationsXML['org'] as $organizationXML) {
-                $organization = $em->getRepository(Organizations::class)->findOneBy(array(
-                    'ogrn' => $organizationXML['@ogrn']
-                ));
-                if (!$organization) {
-                    $organization = new Organizations();
-                }
-                $organization->setOgrn($organizationXML['@ogrn'])
-                    ->setTitle($organizationXML['@displayName'])
-                    ->setOktmo($organizationXML['@oktmo']);
-                $em->persist($organization);
-                if (!isset($organizationXML['user'])) {
-                    continue;
-                }
-                foreach ($organizationXML['user'] as $key => $userXML) {
-                    if (!is_array($userXML)) {
-                        $userXML = $organizationXML['user'];
-                        $stop = true;
-                    }
-                    $user = $em->getRepository(Users::class)->findOneBy(array(
-                        'snils' => $userXML["@snils"]
-                    ));
-                    if (!$user) {
-                        $user = new Users();
-                    }
-                    $user->setFirstname($userXML['@firstname'])
-                        ->setLastname($userXML['@lastname'])
-                        ->setMiddlename($userXML['@middlename'])
-                        ->setOrganization($organization)
-                        ->setSnils($userXML['@snils'])
-                        ->setTin($userXML['@inn']);
-                    $em->persist($user);
-                    if ($stop) {
-                        break;
-                    }
-                }
-            }
-            $em->flush();
-        } catch (Exception $e) {
-            $this->addFlash('error', $e->getMessage());
-            return false;
-        }
-        return true;
-    }
-
 }

@@ -29,3 +29,10 @@ import: Импорт
 home: Главная
 confirm.deletion: Подтверждение удаления
 confirm.deletion.message: При удалении организации удалятся все ее сотрудники, Вы действительно хотите удалить организацию?
+type.most.xml: Тип файла должен быть XML
+not.possible.move.file: Не возможно переместить файл
+not.possible.handle.file: Не возможно переместить файл
+import.complete: Импорт прошел успешно
+error.delete.person: Ошибка при удалении сотрудников:
+error.delete.organization: Ошибка при удалении организации:
+error.not.organization: Нет такой организации
